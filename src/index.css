@@ -1,0 +1,663 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  background-image: url('../public/background.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.loading {
+  background-color: #181818;
+}
+
+/* Consistent input and button styles */
+input,
+button {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #3a3a3a;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover,
+input:hover {
+  background-color: #3a3a3a;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* header */
+.header{
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #3a3a3a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.95;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Pokemon Card-specific styles */
+.pokemon-card {
+    width: 20rem;
+    max-width: 24rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    background: linear-gradient(to bottom, #0382bdb7, #000103be);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-card img {
+    width: 12rem; /* Equivalent to w-64 */
+    height: 12rem; /* Equivalent to h-64 */
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+    background-color: #4a5568; /* bg-gray-700 */
+}
+
+/* Moves and Types list */
+.pokemon-card .abilities {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: left;
+}
+
+.pokemon-card .abilities h3 {
+    font-size: 1.25rem; /* Equivalent to text-lg */
+    font-weight: bold; /* font-bold */
+    margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.pokemon-card .abilities ul {
+    list-style-type: disc;
+    margin-left: 1rem; /* ml-4 */
+    font-size: 1rem;
+    margin-bottom: 1rem; /* spacing between lists */
+    padding-left: 1rem; /* list-inside */
+}
+
+  
+  /* Hover animation for sprites */
+  .pokemon-sprite:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Dark Overlay */
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+.pokemon-sprite {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pokemon-sprite:hover {
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Main Encounter Container */
+.encounter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Encounter Arena */
+  .encounter-arena {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    overflow: hidden;
+    background-image: url("../public/encounter.jpg");
+  }
+  
+  
+  /* Pokémon Status Styling */
+  .pokemon-status {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    min-width: 150px;
+    text-align: center;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+  }
+  
+  .pokemon-status span {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .pokemon-status .hp-label {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .opponent-sprite {
+    position: absolute;
+    top: 40%;
+    right: 20%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .player-sprite {
+    position: absolute;
+    bottom: 30%;
+    left: 10%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  /* Battle Log Styling */
+
+/* Container and Layout Adjustments */
+.encounter-container {
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background for the entire encounter */
+    border-radius: 0.75rem; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
+  }
+  
+  /* Opponent Pokémon and Player Pokémon styling */
+  .encounter-pokemon-sprite {
+    width: 160px;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .encounter-opponent-sprite:hover,
+  .encounter-player-sprite:hover {
+    transform: scale(1.1); /* Slight scale on hover */
+  }
+  
+  /* Status Container */
+  .pokemon-status {
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+    padding: 0.75rem; /* Add padding */
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+  
+  /* Battle Log Styling */
+  .battle-log {
+    background-color: rgba(0, 0, 0, 0.75); /* Darker background for battle log */
+    border-radius: 0.5rem; /* Add rounded corners */
+    color: wheat;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Depth for log */
+  }
+  
+  .log-message {
+    color: wheat; /* Lighter gray text for better visibility */
+    font-weight: bold; /* Make log messages stand out */
+  }
+  
+  /* Buttons Styling */
+  .menu-button {
+    flex-wrap:wrap;
+    background-color: #2f7dc5af; /* Bright blue button */
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    width: 30vh;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .menu-button:hover {
+    background-color: #2f7dc5;
+    transform: scale(1.05);
+  }
+  
+  .menu-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  
+  /* Pokemon HP Progress Bar */
+  .pokemon-status .hp-label {
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 0.25rem;
+  }
+  
+  .battle-log .log-message {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .battle-log .border-white {
+    border-top: 1px solid rgba(248, 199, 93, 0.705);
+  }
+  
+  .battle-log .overflow-y-auto {
+    height: 15vh;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  /* Battle Menu Styling */
+  .battle-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .battle-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+/* Defeat Screen Specific Styling */
+.death-screen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000; /* Fallback background */
+}
+
+/* Full-screen background for defeat screen */
+.death-screen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Overlay for better text visibility */
+.death-screen .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay with transparency */
+  z-index: 1;
+}
+
+/* Defeat message styling */
+.death-screen h1 {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  animation: pulse 2s infinite;
+}
+
+/* Restart button styling */
+.death-screen button {
+  position: relative;
+  z-index: 2;
+  background-color: #e3342f;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Button hover effects */
+.death-screen button:hover {
+  background-color: #cc1f1a;
+  transform: scale(1.05);
+}
+
+/* Focus ring for button accessibility */
+.death-screen button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.5);
+}
+
+/* Pulse animation for defeat message */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+  .death-screen h1 {
+    font-size: 3rem;
+  }
+
+  .death-screen button {
+    font-size: 1.25rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .death-screen h1 {
+    font-size: 2rem;
+  }
+
+  .death-screen button {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+}
+
+/* HP Bar */
+.pokemon-status {
+  background-color: rgba(0, 0, 0, 0.596);
+  border-radius: 8px;
+  padding: 5px;
+  color: white;
+  min-width: 120px;
+  text-align: center;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.pokemon-status .progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.pokemon-status .hp-label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pokemon-status span {
+  display: block;
+  font-weight: bold;
+}
+
+.captured-page {
+    position: relative;
+    background-image: url("../public/captured.jpg");
+    background-size: cover; /* Ensures the background covers the entire area */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the background from repeating */
+    background-attachment: fixed; /* Keeps the background fixed in place when scrolling */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure it takes full width */
+    min-height: 100vh; /* Ensure it takes at least full viewport height */
+  }
+  
+  /* Fixing the header at the top */
+  .captured-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    position: fixed; /* Keeps the header fixed at the top */
+    top: 20px; /* Adjust the top position */
+    z-index: 20; /* Ensures it stays above other content */
+    width: 100%; /* Stretches the header across the full width */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional background for better visibility */
+    padding: 10px;
+  }
+  
+  /* Grid for Captured Pokémon */
+  .captured-grid {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+    margin-top: 100px; /* Add space below the fixed header */
+    margin-bottom: 100px; /* Add space above the fixed button */
+    max-height: calc(100vh - 180px); /* Ensures the grid doesn't exceed the space between header and button */
+    overflow-y: auto; /* Makes grid scrollable if necessary */
+  }
+  
+  /* Fixing the button at the bottom */
+  .back-button {
+    position: fixed; /* Keeps the button fixed at the bottom */
+    bottom: 20px; /* Distance from the bottom */
+    z-index: 20; /* Ensures it stays above other content */
+    background-color: #dc2626; /* Tailwind bg-red-600 */
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #b91c1c; /* Tailwind hover:bg-red-700 */
+    transform: scale(1.05);
+  }
+  
+  .back-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(252, 165, 165, 0.5); /* Focus ring */
+  }
+  
+  /* Captured Pokémon Card */
+  .captured-card {
+    background-color: rgba(17, 24, 39, 0.9); /* Slight opacity for depth */
+    color: wheat;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  }
+  
+  .captured-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .captured-card img {
+    width: 8rem; /* Larger for better visibility */
+    height: 8rem;
+    margin-bottom: 1rem;
+    object-fit: contain;
+  }
+  
+  .captured-card h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Responsive Grid Adjustments */
+  @media (max-width: 1024px) {
+    .captured-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  
+    .captured-card img {
+      width: 6rem; /* Smaller image on smaller screens */
+      height: 6rem;
+    }
+  
+    .captured-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .captured-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  
+    .captured-card {
+      padding: 1rem;
+    }
+  
+    .captured-title {
+      font-size: 1.75rem;
+    }
+  
+    .captured-card img {
+      width: 5rem;
+      height: 5rem;
+    }
+  
+    .captured-card h2 {
+      font-size: 1.125rem;
+    }
+  
+    .captured-card p,
+    .captured-card div {
+      font-size: 0.875rem;
+    }
+  }  
+  
+  /* Back Button */
+  .back-button {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    background-color: #ef4444;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .back-button:hover {
+    background-color: #dc2626;
+    transform: scale(1.05);
+  }
+  
+  .back-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.5);
+  }
+  
+
+/* Responsive adjustments for battle */
+@media (max-width: 1400px) {
+  .encounter-opponent-sprite {
+    width: 18vw;
+  }
+
+  .encounter-player-sprite {
+    width: 20vw;
+  }
+
+  .menu-button {
+    width: 80vw;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .encounter-opponent-sprite {
+    width: 20vw;
+  }
+
+  .encounter-player-sprite {
+    width: 20vw;
+  }
+
+  .menu-button {
+    width: 30vh;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .encounter-opponent-sprite {
+    width: 20vw;
+  }
+
+  .eencounter-player-sprite {
+    width: 20vw;
+  }
+
+  .menu-button {
+    width: 50vw;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .pokemon-status {
+    min-width: 160px;
+  }
+}

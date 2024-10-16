@@ -1,0 +1,74 @@
+.home-screen {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url('../public/homescreen.gif');
+    background-size: cover;
+    background-position:unset;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  /* Dark overlay effect */
+  .home-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  /* Content styling */
+  .home-screen .relative {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .home-screen h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .home-screen p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .home-screen h1 {
+      font-size: 2.5rem;
+    }
+    .home-screen p {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .home-screen h1 {
+      font-size: 2rem;
+    }
+    .home-screen p {
+      font-size: 1rem;
+    }
+  }
+  

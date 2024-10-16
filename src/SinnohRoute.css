@@ -1,0 +1,80 @@
+.sinnoh-route {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../public/Grass_MapBG.png');
+    min-height: 100vh;
+    background-color: #4caf50;
+}
+
+.route-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.route-grid {
+    display: grid;
+    grid-template-columns: repeat(16, 40px);
+    grid-template-rows: repeat(16, 40px);
+}
+
+.tile {
+    width: 40px;
+    height: 40px;
+}
+
+.grass {
+    background-image: url('../public/grass.png');
+    background-size: 40px 40px;
+}
+
+.path {
+    background-image: url('../public/map.png');
+    background-size: 500px 500px;
+    background-position: 115px -40px;
+}
+
+.tree {
+    background-image: url('../public/map.png');
+    background-position: 80px 60px;
+    background-size: 315px 300px;
+    scale: 2;
+}
+
+.player {
+    background-image: url('../public/CharacterSpriteSheet.png');
+    background-size: 400%;
+    scale: 1.5;
+}
+
+.player-down {
+    background-position-y: 0px;
+}
+
+.player-left {
+    background-position-y: 125px;
+}
+
+.player-right {
+    background-position-y: 85px;
+}
+
+.player-up {
+    background-position-y: 40px;
+}
+
+.step-0 {
+    background-position-x: 0px;
+}
+
+.step-1 {
+    background-position-x: -40px;
+}
+
+.step-2 {
+    background-position-x: -80px;
+}

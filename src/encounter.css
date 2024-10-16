@@ -1,0 +1,215 @@
+.encounter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #000;
+}
+
+.battle-area {
+    background: url('../public/draw-a-pixel-pokemon-battle-background.gif') no-repeat center center;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: 90vh;
+    position: relative;
+    padding: 0 5%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.player-area {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10%;
+    position: absolute;
+    bottom: 5%;
+    left: 25%;
+    gap: 50%;
+}
+
+.player-status{
+    margin-bottom: 10%;
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+}
+
+.opponent-status{
+    margin-top: 10%;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.opponent-area {
+    width: 70%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-top: 10%;
+    position: absolute;
+    top: 10%;
+    right: 20%;
+    gap: 50%;
+}
+
+.status-bar {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: white;
+    width: 12vw;
+    z-index: 1;
+    font-size: 1.2rem;
+}
+
+.hp-bar {
+    background-color: red;
+    height: 1.5vh;
+    border-radius: 5px;
+}
+
+.hp-fill {
+    background-color: green;
+    height: 100%;
+    border-radius: 5px;
+    transition: background-color 1s ease;
+}
+
+.pokemon-sprite {
+    width: 10vw;
+    height: auto;
+    position: relative;
+    bottom: 0;
+}
+
+.battle-log {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 5px;
+    display: flex;
+    gap:10%;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.message-box {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.log-box {
+    font-size: 1.2rem;
+    height: 15vh;
+    overflow-y: auto;
+    width: 85%;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.battle-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+    align-content: end;
+}
+
+.menu-button, .ability-button, .back-button {
+    background-color: #444;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+    width: 18vw;
+    font-size: 1.1rem;
+    transition: width 0.5s linear, background-color 0.3s;
+}
+
+.menu-button:hover, .ability-button:hover, .back-button:hover {
+    background-color: #666;
+}
+
+@media (max-width: 768px) {
+    .encounter-container {
+        padding: 10px;
+    }
+
+    .battle-area {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .status-bar {
+        width: 18vw;
+        font-size: 1rem;
+    }
+
+    .pokemon-sprite {
+        width: 25vw;
+        height: auto;
+    }
+
+    .battle-log, .battle-menu {
+        width: 100%;
+    }
+
+    .menu-button, .ability-button, .back-button {
+        width: 25vw;
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .battle-area {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60vh;
+    }
+
+    .status-bar {
+        width: 22vw;
+        font-size: 0.9rem;
+    }
+
+    .pokemon-sprite {
+        width: 30vw;
+        height: auto;
+    }
+
+    .message-box {
+        font-size: 1.2rem;
+    }
+
+    .log-box {
+        font-size: 1rem;
+        height: 12vh;
+    }
+
+    .menu-button, .ability-button, .back-button {
+        width: 35vw;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}

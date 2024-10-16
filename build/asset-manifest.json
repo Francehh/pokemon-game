@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c6afb240.css",
+    "main.js": "/static/js/main.1b4c7952.js",
+    "static/js/453.88548d40.chunk.js": "/static/js/453.88548d40.chunk.js",
+    "static/media/draw-a-pixel-pokemon-battle-background.gif": "/static/media/draw-a-pixel-pokemon-battle-background.21f94168c113860c747f.gif",
+    "static/media/homescreen.gif": "/static/media/homescreen.4318b02e321e7cbd5cce.gif",
+    "static/media/background.jpg": "/static/media/background.68778fe7eb05f84ee86a.jpg",
+    "static/media/map.png": "/static/media/map.47a9a88b278ff5af8e45.png",
+    "index.html": "/index.html",
+    "main.c6afb240.css.map": "/static/css/main.c6afb240.css.map",
+    "main.1b4c7952.js.map": "/static/js/main.1b4c7952.js.map",
+    "453.88548d40.chunk.js.map": "/static/js/453.88548d40.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6afb240.css",
+    "static/js/main.1b4c7952.js"
+  ]
+}
