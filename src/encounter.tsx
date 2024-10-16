@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import DeathScreen from './components/DeathScreen';
 import { Progress, MantineProvider } from '@mantine/core';
 
 interface Pokemon {
@@ -251,36 +250,46 @@ const Encounter: React.FC = () => {
       console.error('No opponent Pokémon available to run from.');
       return;
     }
-
-    const runChance = Math.max(0, 100 - (50 * (opponentHP / opponentPokemon.hp)));
-    const randomValue = Math.random() * 100;
-
+  
+    // Inversely proportional run chance: the lower the opponent's HP, the higher the chance to escape
+    const opponentHPRatio = opponentHP / opponentMaxHP;
+    const runChance = Math.max(10, 90 * (1 - opponentHPRatio)); // Minimum 10% chance to escape
+  
+    const randomValue = Math.random() * 100; // Generate a random value between 0 and 100
+  
     const success = randomValue <= runChance;
-
+  
     const message = success ? 'You successfully ran away!' : 'Failed to escape!';
     setBattleMessage(message);
     addLog(message);
     setIsPlayerTurn(false);
-
+  
     setTimeout(() => {
       if (success) {
-        navigate('/sinnoh-route');
+        navigate('/sinnoh-route'); // Navigate to a different route after a successful escape
       } else {
-        handleOpponentAttack();
+        handleOpponentAttack(); // Opponent attacks if the escape fails
+        setTimeout(() => {
+          setIsPlayerTurn(true);
+        }, 1000);
       }
     }, success ? 1500 : 1000);
   };
+  
 
 const handleCapture = async () => {
+    setIsPlayerTurn(false);
   if (!opponentPokemon) {
     console.error('No opponent Pokémon to capture.');
     return;
   }
 
-  const captureChance = Math.max(0, 100 - (50 * (opponentHP / opponentMaxHP)));
-  const randomValue = Math.random() * opponentMaxHP;
-  const success = randomValue <= captureChance;
+  const opponentHPRatio = opponentHP / opponentMaxHP;
+  const captureChance = Math.max(10, 90 * (1 - opponentHPRatio));
 
+  const randomValue = Math.random() * 100;
+
+  const success = randomValue <= captureChance;
   setBattleMessage('Attempting to capture...');
   setIsCatching(true);
 
@@ -303,7 +312,6 @@ const handleCapture = async () => {
         attack: opponentPokemon.attack,
         defense: opponentPokemon.defense,
       };
-
       try {
         await axios.post('http://localhost:3001/api/caught-pokemon', caughtPokemon);
         console.log('Caught Pokémon saved successfully');
@@ -327,19 +335,15 @@ const handleCapture = async () => {
   }, 5000);
 };
 
-  const handleDefeat = async () => {
+const handleDefeat = async () => {
     try {
       await axios.delete('http://localhost:3001/api/caught-pokemon');
       console.log('Deleted all caught Pokémon.');
     } catch (error) {
       console.error('Error deleting caught Pokémon:', error);
     }
-    setShowDeathScreen(true);
+    navigate('/death');
   };
-
-  if (showDeathScreen) {
-    return <DeathScreen onRestart={() => navigate('/')} />;
-  }
 
   if (!opponentPokemon || !playerPokemon) {
     return <div>Loading...</div>;
@@ -451,7 +455,7 @@ const handleCapture = async () => {
                 setBattleMessage('Your Pokémon fainted! Instant defeat activated.');
                 setGameOver(true);
                 setTimeout(() => {
-                  handleDefeat();
+                handleDefeat();
                 }, 3000);
               }}
               className="menu-button flex-1 min-w-[120px] px-4 py-2 bg-red-600 hover:bg-red-700 transition duration-300"

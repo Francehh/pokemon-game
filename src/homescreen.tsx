@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -8,11 +9,13 @@ interface StartScreenProps {
 const StartScreen: React.FC<StartScreenProps> = ({ onStart, fetchRandomPokemon }) => {
 
   const themeMusic = `${process.env.PUBLIC_URL}/HomeScreenMusic.mp3`;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const audio = new Audio(themeMusic);
     audio.volume = 0.1;
-    audio.play().catch(error => {
+
+    audio.play().catch((error) => {
       console.error('Error playing audio:', error);
     });
 
@@ -26,8 +29,9 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart, fetchRandomPokemon }
     return () => {
       window.removeEventListener('click', handleClick);
       audio.pause();
+      audio.currentTime = 0;
     };
-  }, [onStart, fetchRandomPokemon, themeMusic]);
+  }, [onStart, fetchRandomPokemon, themeMusic, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center relative bg-black">

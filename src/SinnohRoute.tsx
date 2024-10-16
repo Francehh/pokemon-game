@@ -34,7 +34,7 @@ const SinnohRoute: React.FC = () => {
     const [stepIndex, setStepIndex] = useState(0);
     const [encounterRate, setEncounterRate] = useState(0.1);
     const [capturedPokemonCount, setCapturedPokemonCount] = useState<number>(0);
-    const [isEncountering, setIsEncountering] = useState<boolean>(false); // NEW STATE
+    const [isEncountering, setIsEncountering] = useState<boolean>(false);
     const navigate = useNavigate();
   
     const themeMusic = `${process.env.PUBLIC_URL}/RouteThemeMusic.mp3`;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import PokemonSelection from './components/PokemonSelection';
 import AdventureButton from './components/AdventureButton';
@@ -10,6 +10,7 @@ const StartScreen = React.lazy(() => import('./homescreen'));
 const SinnohRoute = React.lazy(() => import('./SinnohRoute'));
 const Encounter = React.lazy(() => import('./encounter'));
 const Captured = React.lazy(() => import('./components/captured'));
+const DeathScreen = React.lazy(() => import('./components/DeathScreen'));
 
 const App: React.FC = () => {
   return (
@@ -54,6 +55,13 @@ const Main: React.FC = () => {
     setAudio(newAudio);
   };
 
+  const navigate = useNavigate();
+
+  const handleRestart = () => {
+    navigate('/');
+    window.location.reload()
+  };
+        
   const stopMusic = () => {
     if (audio) {
       audio.pause();
@@ -69,7 +77,7 @@ const Main: React.FC = () => {
     }
   };
 
-  const location = useLocation(); // Use location to track the current path
+  const location = useLocation();
 
   useEffect(() => {
     stopMusic(); // Stop music on navigation
@@ -100,6 +108,7 @@ const Main: React.FC = () => {
               <Route path="/sinnoh-route" element={<SinnohRoute />} />
               <Route path="/encounter" element={<Encounter />} />
               <Route path="/captured" element={<Captured />} />
+              <Route path="/death" element={<DeathScreen onRestart={handleRestart} />} />
             </Routes>
           </Suspense>
 
