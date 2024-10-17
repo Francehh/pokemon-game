@@ -16,7 +16,7 @@ const CACHE_EXPIRATION_TIME = 1000 * 60 * 5;
 
 // Connect to MongoDB using mongoose
 mongoose.connect(mongoURI)
-  .then(() => console.log('Connected to MongoDB - PokemonGame from: ', mongoURI))
+  .then(() => console.log('Connected to MongoDB - PokemonGame'))
   .catch((error) => {
     console.error('Failed to connect to MongoDB:', error.message);
   });
